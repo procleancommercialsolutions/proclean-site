@@ -1,34 +1,21 @@
-// Testimonial carousel functionality
-const slides = document.querySelectorAll('.testimonial-slide');
-let currentIndex = 0;
-const prevBtn = document.querySelector('.carousel-prev');
-const nextBtn = document.querySelector('.carousel-next');
+// Simple testimonial carousel: cycle through testimonial items
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial-item');
+const totalTestimonials = testimonials.length;
 
-function showSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.classList.toggle('active', i === index);
+function showTestimonial(index) {
+  testimonials.forEach((item, i) => {
+    item.classList.toggle('active', i === index);
   });
 }
 
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-});
+// Initial display
+if (testimonials.length > 0) {
+  testimonials[0].classList.add('active');
+}
 
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  showSlide(currentIndex);
-});
-
-// Auto-rotate slides every 5 seconds
+// Rotate testimonials every 5 seconds
 setInterval(() => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
+  currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+  showTestimonial(currentTestimonial);
 }, 5000);
-
-// Close mobile menu on nav link click (uncheck the toggle)
-document.querySelectorAll('.nav-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById('nav-toggle').checked = false;
-  });
-});
